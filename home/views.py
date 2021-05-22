@@ -84,7 +84,7 @@ def login(request):
             if user is not None: 
                 loginUser(request,user)
                 messages.success(request, f' wecome {username} !!')
-
+                request.session['username'] = username
                 return redirect('home')
             else:
                  messages.info(request, f'account done not exit plz sign in')
@@ -106,10 +106,10 @@ def verify(request, auth_token):
             messages.success(request, 'your account has verified')
             return redirect('success')
         else:
-            return redirect('/error')
+            return redirect('error')
     except Exception as e:
         print(e)  
-        return redirect('/error')
+        return redirect('error')
 
 def error_page(request):
     return render(request,'error.html')
